@@ -97,6 +97,59 @@
         </div>
     </section>
 
+    <!-- Portfolio Section -->
+    <section class="py-32 bg-iaspig-cream/30">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="max-w-2xl space-y-4" data-aos="fade-right">
+                    <h2 class="text-4xl font-outfit font-bold text-iaspig-brown">Karya Nyata Alumni</h2>
+                    <p class="text-gray-500">Menampilkan dedikasi dan keahlian alumni SPIG UPI dalam membangun infrastruktur geospasial nasional.</p>
+                </div>
+                <div data-aos="fade-left">
+                    <a href="#" class="inline-flex items-center gap-2 text-iaspig-orange font-bold hover:gap-4 transition-all">
+                        Lihat Semua Proyek <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[400px]" data-aos="fade-up" data-aos-delay="100">
+                    <img src="{{ asset('assets/img/portfolio_1.png') }}" alt="GIS Dashboard" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-iaspig-brown via-iaspig-brown/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                        <span class="text-iaspig-orange font-bold text-xs uppercase tracking-widest mb-2 block">GIS & Analysis</span>
+                        <h3 class="text-white text-xl font-bold mb-2">Smart City Dashboard</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Integrasi data spasial untuk monitoring infrastruktur perkotaan secara real-time.</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[400px]" data-aos="fade-up" data-aos-delay="200">
+                    <img src="{{ asset('assets/img/portfolio_2.png') }}" alt="Drone Mapping" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-iaspig-brown via-iaspig-brown/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                        <span class="text-iaspig-orange font-bold text-xs uppercase tracking-widest mb-2 block">Photogrammetry</span>
+                        <h3 class="text-white text-xl font-bold mb-2">High-Res Orthophoto</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Pemetaan koridor pesisir menggunakan teknologi UAV untuk mitigasi bencana.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[400px]" data-aos="fade-up" data-aos-delay="300">
+                    <img src="{{ asset('assets/img/portfolio_3.png') }}" alt="Land Survey" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-iaspig-brown via-iaspig-brown/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                        <span class="text-iaspig-orange font-bold text-xs uppercase tracking-widest mb-2 block">Terrestrial Survey</span>
+                        <h3 class="text-white text-xl font-bold mb-2">Topographic Mapping</h3>
+                        <h4 class="text-white text-lg mb-2">Survei Lahan Tambang</h4>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Pengukuran presisi tinggi untuk perencanaan area tambang dan infrastruktur pendukung.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Partner CTA -->
     <section class="pb-32">
         <div class="container mx-auto px-6">
