@@ -24,6 +24,8 @@ class AlumniProfile extends Model
         'skills' => 'array',
         'privacy_settings' => 'array',
         'availability_status' => 'boolean',
+        'latitude' => 'double',
+        'longitude' => 'double',
     ];
 
     public function user()

@@ -26,4 +26,10 @@ export default {
     },
 
     plugins: [forms],
+    safelist: [
+        'bg-iaspig-orange/10', 'text-iaspig-orange',
+        'bg-iaspig-brown/10', 'text-iaspig-brown',
+        'bg-blue-500/10', 'text-blue-500',
+        'bg-green-500/10', 'text-green-500',
+    ],
 };

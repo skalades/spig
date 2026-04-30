@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="glass-nav">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="IASPIG Logo" class="h-10 w-auto">
                     </a>
                 </div>
 
@@ -22,8 +22,13 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                        <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-bold rounded-xl text-iaspig-brown bg-iaspig-brown/5 hover:bg-iaspig-brown/10 focus:outline-none transition ease-in-out duration-150">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-iaspig-orange flex items-center justify-center text-white">
+                                    {{ substr(Auth::user()->name, 0, 1) }}
+                                </div>
+                                {{ Auth::user()->name }}
+                            </div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -65,8 +70,12 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white/90 backdrop-blur-xl">
+        <div class="pt-2 pb-3 space-y-1 px-4">
+            <div class="flex items-center gap-3 mb-4 py-2 border-b border-gray-100">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" class="h-8 w-auto">
+                <span class="text-sm font-black text-iaspig-brown tracking-tighter">IASPIG Portal</span>
+            </div>
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>

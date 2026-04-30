@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Alumni\DashboardController as AlumniDashboard;
-use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Alumni\DashboardController;
+use App\Http\Controllers\Alumni\AlumniProfileController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [LandingPageController::class, 'index']);
 
@@ -16,7 +16,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified', 'role:alumni'])->group(function () {
-    Route::get('/alumni/dashboard', [AlumniDashboard::class, 'index'])->name('alumni.dashboard');
+    Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
+    Route::get('/alumni/profile', [AlumniProfileController::class, 'edit'])->name('alumni.profile.edit');
+    Route::patch('/alumni/profile', [AlumniProfileController::class, 'update'])->name('alumni.profile.update');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {

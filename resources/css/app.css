@@ -19,6 +19,18 @@
         @apply bg-iaspig-orange text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-iaspig-orange/30 hover:shadow-iaspig-orange/50 hover:-translate-y-0.5 transition-all duration-300;
     }
 
+    .glass-card {
+        @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+    }
+
+    .text-gradient-orange {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-iaspig-orange to-iaspig-brown;
+    }
+
+    .shadow-premium {
+        @apply shadow-[0_20px_50px_rgba(93,64,55,0.1)];
+    }
+
     .animate-slow-pulse {
         animation: slow-pulse 8s infinite ease-in-out;
     }
