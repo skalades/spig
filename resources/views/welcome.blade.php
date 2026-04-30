@@ -38,22 +38,12 @@
     <section class="bg-iaspig-cream py-20 relative overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="space-y-2" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl font-bold text-iaspig-orange font-outfit">1,500+</div>
-                    <div class="text-sm font-semibold text-iaspig-brown uppercase tracking-widest">Total Alumni</div>
+                @foreach($stats as $index => $stat)
+                <div class="space-y-2" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+                    <div class="text-4xl font-bold text-iaspig-orange font-outfit">{{ $stat->value }}</div>
+                    <div class="text-sm font-semibold text-iaspig-brown uppercase tracking-widest">{{ $stat->label }}</div>
                 </div>
-                <div class="space-y-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl font-bold text-iaspig-orange font-outfit">25+</div>
-                    <div class="text-sm font-semibold text-iaspig-brown uppercase tracking-widest">Angkatan</div>
-                </div>
-                <div class="space-y-2" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl font-bold text-iaspig-orange font-outfit">300+</div>
-                    <div class="text-sm font-semibold text-iaspig-brown uppercase tracking-widest">Perusahaan</div>
-                </div>
-                <div class="space-y-2" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-4xl font-bold text-iaspig-orange font-outfit">34</div>
-                    <div class="text-sm font-semibold text-iaspig-brown uppercase tracking-widest">Provinsi</div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -113,39 +103,17 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[400px]" data-aos="fade-up" data-aos-delay="100">
-                    <img src="{{ asset('assets/img/portfolio_1.png') }}" alt="GIS Dashboard" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                @foreach($projects as $index => $project)
+                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[400px]" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+                    <img src="{{ asset($project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-iaspig-brown via-iaspig-brown/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                        <span class="text-iaspig-orange font-bold text-xs uppercase tracking-widest mb-2 block">GIS & Analysis</span>
-                        <h3 class="text-white text-xl font-bold mb-2">Smart City Dashboard</h3>
-                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Integrasi data spasial untuk monitoring infrastruktur perkotaan secara real-time.</p>
+                        <span class="text-iaspig-orange font-bold text-xs uppercase tracking-widest mb-2 block">{{ $project->category }}</span>
+                        <h3 class="text-white text-xl font-bold mb-2">{{ $project->title }}</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ $project->description }}</p>
                     </div>
                 </div>
-
-                <!-- Project 2 -->
-                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[400px]" data-aos="fade-up" data-aos-delay="200">
-                    <img src="{{ asset('assets/img/portfolio_2.png') }}" alt="Drone Mapping" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-iaspig-brown via-iaspig-brown/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                        <span class="text-iaspig-orange font-bold text-xs uppercase tracking-widest mb-2 block">Photogrammetry</span>
-                        <h3 class="text-white text-xl font-bold mb-2">High-Res Orthophoto</h3>
-                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Pemetaan koridor pesisir menggunakan teknologi UAV untuk mitigasi bencana.</p>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[400px]" data-aos="fade-up" data-aos-delay="300">
-                    <img src="{{ asset('assets/img/portfolio_3.png') }}" alt="Land Survey" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-iaspig-brown via-iaspig-brown/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                    <div class="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                        <span class="text-iaspig-orange font-bold text-xs uppercase tracking-widest mb-2 block">Terrestrial Survey</span>
-                        <h3 class="text-white text-xl font-bold mb-2">Topographic Mapping</h3>
-                        <h4 class="text-white text-lg mb-2">Survei Lahan Tambang</h4>
-                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Pengukuran presisi tinggi untuk perencanaan area tambang dan infrastruktur pendukung.</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
