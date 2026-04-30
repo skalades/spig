@@ -22,7 +22,33 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_verified',
     ];
+
+    /**
+     * Get the profile associated with the user.
+     */
+    public function alumniProfile()
+    {
+        return $this->hasOne(AlumniProfile::class);
+    }
+
+    /**
+     * Get the projects for the user.
+     */
+    public function alumniProjects()
+    {
+        return $this->hasMany(AlumniProject::class);
+    }
+
+    /**
+     * Check if user is admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
 
     /**
      * The attributes that should be hidden for serialization.

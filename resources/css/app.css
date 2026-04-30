@@ -1,63 +1,43 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-iaspig-orange: #E67E22;
-  --color-iaspig-brown: #5D4037;
-  --color-iaspig-white: #FFFFFF;
-  --color-iaspig-cream: #FDF5E6;
-  
-  --font-sans: 'Inter', sans-serif;
-  --font-outfit: 'Outfit', sans-serif;
-}
+@layer components {
+    .bg-gradient-premium {
+        @apply bg-gradient-to-br from-white via-[#F9F5F2] to-[#E67E22]/10;
+    }
 
-@layer base {
-  body {
-    background-color: var(--color-iaspig-white);
-    color: var(--color-iaspig-brown);
-    font-family: var(--font-sans);
-  }
-}
+    .bg-gradient-orange-brown {
+        @apply bg-gradient-to-r from-iaspig-orange to-iaspig-brown;
+    }
 
-@utility btn-primary {
-  background-color: var(--color-iaspig-orange);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 700;
-  transition: all 0.3s;
-  box-shadow: 0 10px 15px -3px rgba(230, 126, 34, 0.2);
-  
-  &:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-  }
-}
+    .glass-nav {
+        @apply sticky top-0 z-[60] bg-white/70 backdrop-blur-xl border-b border-white/20 transition-all duration-300;
+    }
 
-@utility glass-nav {
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  border-bottom: 1px solid var(--color-iaspig-cream);
-}
+    .btn-primary {
+        @apply bg-iaspig-orange text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-iaspig-orange/30 hover:shadow-iaspig-orange/50 hover:-translate-y-0.5 transition-all duration-300;
+    }
 
-@keyframes float {
-  0% { transform: translateY(0px) rotate(2deg); }
-  50% { transform: translateY(-20px) rotate(0deg); }
-  100% { transform: translateY(0px) rotate(2deg); }
-}
+    .animate-slow-pulse {
+        animation: slow-pulse 8s infinite ease-in-out;
+    }
 
-@utility animate-float {
-  animation: float 6s ease-in-out infinite;
+    .animate-float {
+        animation: float 6s infinite ease-in-out;
+    }
 }
 
 @keyframes slow-pulse {
-  0% { transform: scale(1); opacity: 0.1; }
-  50% { transform: scale(1.1); opacity: 0.2; }
-  100% { transform: scale(1); opacity: 0.1; }
+    0%, 100% { opacity: 0.1; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(1.1); }
 }
 
-@utility animate-slow-pulse {
-  animation: slow-pulse 8s ease-in-out infinite;
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(2deg); }
+    50% { transform: translateY(-20px) rotate(4deg); }
+}
+
+.topo-pattern {
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
 }

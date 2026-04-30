@@ -51,8 +51,8 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <a href="#" class="text-iaspig-brown font-semibold hover:text-iaspig-orange transition-colors">Masuk</a>
-                <a href="#" class="btn-primary">Gabung</a>
+                <a href="{{ route('login') }}" class="text-iaspig-brown font-semibold hover:text-iaspig-orange transition-colors">Masuk</a>
+                <a href="{{ route('register') }}" class="btn-primary">Gabung</a>
             </div>
         </div>
     </nav>
@@ -80,9 +80,9 @@
                 <i class="ri-briefcase-line text-2xl"></i>
                 <span class="text-[10px] font-bold uppercase">Karier</span>
             </a>
-            <a href="#" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
+            <a href="{{ route('login') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
                 <i class="ri-user-3-line text-2xl"></i>
-                <span class="text-[10px] font-bold uppercase">Akun</span>
+                <span class="text-[10px] font-bold uppercase">Masuk</span>
             </a>
         </div>
     </nav>

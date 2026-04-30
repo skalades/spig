@@ -1,6 +1,6 @@
 <x-layout>
     <!-- Hero Section -->
-    <section class="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section class="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-premium">
         <div class="topo-pattern"></div>
         <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             <div class="space-y-8">
@@ -16,7 +16,7 @@
                     Temukan rekan seperjuangan, akses bursa kerja eksklusif, dan kembangkan potensi bisnis pemetaanmu dalam satu ekosistem yang kolaboratif dan progresif.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4" data-aos="fade-up" data-aos-delay="400">
-                    <a href="#" class="btn-primary flex items-center gap-2 text-lg">
+                    <a href="{{ route('register') }}" class="btn-primary flex items-center gap-2 text-lg">
                         Gabung Sekarang <i class="ri-arrow-right-line"></i>
                     </a>
                     <a href="#" class="px-8 py-3 rounded-full border-2 border-iaspig-brown text-iaspig-brown font-bold hover:bg-iaspig-brown hover:text-white transition-all duration-300">
@@ -121,7 +121,7 @@
     <!-- Partner CTA -->
     <section class="pb-32">
         <div class="container mx-auto px-6">
-            <div class="bg-iaspig-brown rounded-[3rem] p-12 md:p-20 relative overflow-hidden">
+            <div class="bg-gradient-orange-brown rounded-[3rem] p-12 md:p-20 relative overflow-hidden shadow-2xl shadow-iaspig-brown/20">
                 <div class="absolute top-0 right-0 w-96 h-96 bg-iaspig-orange/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
                 <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div data-aos="fade-right">
