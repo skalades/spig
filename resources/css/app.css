@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.font-outfit {
+    font-family: 'Outfit', sans-serif;
+}
+
 @layer components {
     .bg-gradient-premium {
         @apply bg-gradient-to-br from-white via-[#F9F5F2] to-[#E67E22]/10;

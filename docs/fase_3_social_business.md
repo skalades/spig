@@ -10,12 +10,12 @@ Fase ini menghidupkan komunitas melalui interaksi harian dan pemberdayaan ekonom
   - Komentar bertingkat (Threaded comments).
 - **Real-time Updates**: Menggunakan Laravel Reverb atau Pusher (optional) untuk notifikasi instan.
 
-## 2. Business Directory (Alumni Companies)
 - **Company Profile**: Form pendaftaran perusahaan (Nama, Logo, Deskripsi, Bidang Jasa).
 - **Service Tags**: Kategorisasi perusahaan (e.g., Terrestrial Survey, Hydrography, GIS Developer, **Rental Alat**).
 - **Rental Inventory (Khusus Persewaan)**: Modul bagi perusahaan alumni untuk menampilkan katalog alat yang tersedia untuk disewa (beserta status ketersediaan).
 - **Company Map Layer**: Menambahkan filter pada peta utama untuk menampilkan lokasi kantor-kantor perusahaan alumni.
-- **Partner/Collaboration Portal**: Dashboard bagi perusahaan eksternal untuk mengajukan kerjasama atau memposting lowongan secara resmi.
+- **Partner/Collaboration Portal**: Dashboard bagi perusahaan eksternal untuk mengajukan kerjasama atau memp## 2. Business Directory (Alumni Companies)
+osting lowongan secara resmi.
 - **Contact Business**: Tombol hubungi langsung (WhatsApp/Email) untuk mempermudah transaksi bisnis antar alumni.
 
 ## 3. Career Hub (Job Board)

@@ -31,7 +31,7 @@
                                     <i class="ri-user-settings-line text-xl"></i>
                                     Update Profil
                                 </a>
-                                <a href="#" class="px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl font-black text-white hover:bg-white/10 transition-all flex items-center gap-3">
+                                <a href="{{ route('alumni.directory') }}" class="px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl font-black text-white hover:bg-white/10 transition-all flex items-center gap-3">
                                     <i class="ri-search-eye-line text-xl"></i>
                                     Cari Alumni
                                 </a>
@@ -63,7 +63,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <x-alumni.stat-card 
                     title="Total Alumni" 
-                    value="{{ number_format($stats['total_alumni']) }}" 
+                    value="{{ number_format($stats['total_alumni'], 0, ',', '.') }}" 
                     icon="ri-team-line" 
                     color="iaspig-orange"
                 />
@@ -71,13 +71,13 @@
                     title="Expertise Areas" 
                     value="{{ count($stats['expertise_dist']) }}" 
                     icon="ri-mind-map" 
-                    color="blue-500"
+                    color="iaspig-brown"
                 />
                 <x-alumni.stat-card 
                     title="Project Contributions" 
                     value="{{ $stats['total_projects'] }}" 
                     icon="ri-compass-3-line" 
-                    color="green-500"
+                    color="iaspig-orange"
                 />
                 <x-alumni.stat-card 
                     title="Verified Status" 
@@ -105,6 +105,35 @@
                         if($profile->skills) $completion += 20;
                     @endphp
                     <x-alumni.profile-completion :completion="$completion" />
+
+                    <!-- Business Management Section -->
+                    <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-gray-50 relative overflow-hidden group">
+                        <div class="absolute -right-6 -top-6 text-iaspig-brown/5 group-hover:scale-110 transition-transform duration-500">
+                            <i class="ri-building-4-line text-[120px]"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-black text-iaspig-brown mb-2 uppercase tracking-tight">Business Hub</h3>
+                            @if($user->companies->count() > 0)
+                                <p class="text-gray-400 text-xs font-bold mb-6">Kelola perusahaan Anda dan pantau inventaris rental.</p>
+                                <div class="space-y-3">
+                                    @foreach($user->companies as $company)
+                                        <a href="{{ route('alumni.business.manage') }}" class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-iaspig-orange/10 hover:text-iaspig-orange transition-all border border-transparent hover:border-iaspig-orange/20">
+                                            <div class="flex items-center gap-3">
+                                                <i class="ri-settings-4-line text-lg"></i>
+                                                <span class="font-black text-sm">{{ $company->name }}</span>
+                                            </div>
+                                            <i class="ri-arrow-right-s-line"></i>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @else
+                                <p class="text-gray-400 text-xs font-bold mb-6">Punya perusahaan atau jasa? Daftarkan di direktori alumni sekarang.</p>
+                                <a href="{{ route('alumni.business.register') }}" class="w-full py-4 bg-iaspig-brown text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-iaspig-orange transition-all flex items-center justify-center gap-3 shadow-lg shadow-iaspig-brown/20">
+                                    <i class="ri-add-circle-line text-lg"></i> Register My Business
+                                </a>
+                            @endif
+                        </div>
+                    </div>
                     
                     <x-alumni.expertise-chart id="expertiseChart" />
                 </div>
@@ -129,48 +158,181 @@
     @push('scripts')
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Leaflet Map Implementation with Premium Styling
+            // Basemap Layers
+            var cartoLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap'
+            });
+
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            });
+
+            var esriSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri'
+            });
+
+            // Initialize Map
             var map = L.map('main-map', {
                 zoomControl: false,
-                scrollWheelZoom: false
+                scrollWheelZoom: false,
+                layers: [cartoLight] // Default layer
             }).setView([-2.5, 118], 5); 
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap'
-            }).addTo(map);
+            // Layer Control
+            var baseMaps = {
+                "Clean Minimal (Carto)": cartoLight,
+                "OpenStreetMap": osm,
+                "Satelit (Esri)": esriSatelite
+            };
 
-            var markers = L.markerClusterGroup({
+            L.control.layers(baseMaps).addTo(map);
+
+            // Custom Zoom Controls Implementation
+            document.getElementById('zoom-in').onclick = function() {
+                map.zoomIn();
+            };
+            document.getElementById('zoom-out').onclick = function() {
+                map.zoomOut();
+            };
+
+            var alumniMarkers = L.markerClusterGroup({
                 showCoverageOnHover: false,
                 maxClusterRadius: 50
             });
 
-            @foreach($alumniLocations as $loc)
-                var marker = L.marker([{{ $loc->latitude }}, {{ $loc->longitude }}])
-                    .bindPopup(`
-                        <div class="p-4 min-w-[200px]">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-full bg-iaspig-orange flex items-center justify-center text-white font-bold">
-                                    {{ substr($loc->user->name, 0, 1) }}
-                                </div>
-                                <div>
-                                    <div class="font-black text-iaspig-brown leading-tight">{{ $loc->user->name }}</div>
-                                    <div class="text-[10px] font-bold text-iaspig-orange uppercase">{{ $loc->current_job }}</div>
-                                </div>
-                            </div>
-                            <div class="bg-gray-50 p-2 rounded-xl border border-gray-100">
-                                <div class="text-[9px] font-black text-gray-400 uppercase mb-1">Company</div>
-                                <div class="text-xs font-bold text-iaspig-brown">{{ $loc->company ?? 'Freelance / Not Set' }}</div>
-                            </div>
-                            <a href="#" class="block w-full mt-3 py-2 bg-iaspig-brown text-white text-center text-[10px] font-black rounded-lg hover:bg-iaspig-orange transition-colors uppercase tracking-wider">View Profile</a>
-                        </div>
-                    `);
-                markers.addLayer(marker);
-            @endforeach
+            var companyMarkers = L.markerClusterGroup({
+                showCoverageOnHover: false,
+                maxClusterRadius: 50
+            });
 
-            map.addLayer(markers);
+            var heatLayer = L.heatLayer([], {
+                radius: 25,
+                blur: 15,
+                maxZoom: 10,
+                gradient: {0.4: '#E67E22', 0.65: '#D35400', 1: '#5D4037'}
+            });
+
+            // Layer Toggle Implementation
+            const btnMarkers = document.getElementById('show-markers');
+            const btnCompanies = document.getElementById('show-companies');
+            const btnHeatmap = document.getElementById('show-heatmap');
+
+            function resetButtons() {
+                [btnMarkers, btnCompanies, btnHeatmap].forEach(btn => {
+                    btn.classList.remove('bg-white', 'shadow-sm', 'text-iaspig-orange');
+                    btn.classList.add('text-gray-400');
+                });
+            }
+
+            function setActive(btn) {
+                resetButtons();
+                btn.classList.add('bg-white', 'shadow-sm', 'text-iaspig-orange');
+                btn.classList.remove('text-gray-400');
+            }
+
+            btnMarkers.onclick = function() {
+                map.removeLayer(heatLayer);
+                map.removeLayer(companyMarkers);
+                map.addLayer(alumniMarkers);
+                setActive(this);
+            };
+
+            btnCompanies.onclick = function() {
+                map.removeLayer(heatLayer);
+                map.removeLayer(alumniMarkers);
+                map.addLayer(companyMarkers);
+                setActive(this);
+            };
+
+            btnHeatmap.onclick = function() {
+                map.removeLayer(alumniMarkers);
+                map.removeLayer(companyMarkers);
+                map.addLayer(heatLayer);
+                setActive(this);
+            };
+
+            // Custom Brand Marker Icon
+            var brandIcon = L.divIcon({
+                html: `<svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 0C7.16344 0 0 7.16344 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.16344 24.8366 0 16 0Z" fill="#E67E22"/>
+                        <circle cx="16" cy="16" r="6" fill="white"/>
+                      </svg>`,
+                className: 'brand-marker-icon',
+                iconSize: [32, 42],
+                iconAnchor: [16, 42],
+                popupAnchor: [0, -40]
+            });
+
+            // Fetch map data via AJAX for scalability
+            fetch('{{ route('alumni.map-data') }}')
+                .then(response => response.json())
+                .then(data => {
+                    var heatPoints = [];
+                    data.forEach(loc => {
+                        var initialName = loc.name ? loc.name.substring(0, 1) : '?';
+                        var userName = loc.name ? loc.name : 'Unknown';
+                        var company = loc.company ? loc.company : 'Freelance / Not Set';
+                        var currentJob = loc.current_job ? loc.current_job : 'Alumni';
+                        var isCompany = loc.type === 'Perusahaan';
+
+                        // Use different icon for company
+                        var currentIcon = brandIcon;
+                        var bgColor = isCompany ? 'bg-iaspig-brown' : 'bg-iaspig-orange';
+                        var textColor = isCompany ? 'text-white' : 'text-iaspig-brown';
+                        var linkUrl = isCompany ? `/alumni/business/${loc.slug}` : `/alumni/directory/${loc.user_id}`;
+
+                        if (isCompany) {
+                            currentIcon = L.divIcon({
+                                html: `<svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16 0C7.16344 0 0 7.16344 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.16344 24.8366 0 16 0Z" fill="#5D4037"/>
+                                        <circle cx="16" cy="16" r="6" fill="#E67E22"/>
+                                      </svg>`,
+                                className: 'brand-marker-icon company-marker',
+                                iconSize: [32, 42],
+                                iconAnchor: [16, 42],
+                                popupAnchor: [0, -40]
+                            });
+                        }
+                        
+                        var marker = L.marker([loc.latitude, loc.longitude], { icon: currentIcon })
+                            .bindPopup(`
+                                <div class="p-4 min-w-[200px]">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 rounded-full ${bgColor} flex items-center justify-center text-white font-bold">
+                                            ${initialName}
+                                        </div>
+                                        <div>
+                                            <div class="font-black ${textColor} leading-tight">${userName}</div>
+                                            <div class="text-[10px] font-bold text-iaspig-orange uppercase">${currentJob}</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-50 p-2 rounded-xl border border-gray-100">
+                                        <div class="text-[9px] font-black text-gray-400 uppercase mb-1">${isCompany ? 'Verified Business' : 'Company'}</div>
+                                        <div class="text-xs font-bold text-iaspig-brown">${company}</div>
+                                    </div>
+                                    <a href="${linkUrl}" class="block w-full mt-3 py-2 bg-iaspig-brown !text-white text-center text-[10px] font-black rounded-lg hover:bg-iaspig-orange transition-colors uppercase tracking-wider">View Profile</a>
+                                </div>
+                            `);
+                        
+                        if (isCompany) {
+                            companyMarkers.addLayer(marker);
+                        } else {
+                            alumniMarkers.addLayer(marker);
+                        }
+                        
+                        heatPoints.push([loc.latitude, loc.longitude, 1]); // Lat, Lng, Intensity
+                    });
+                    
+                    heatLayer.setLatLngs(heatPoints);
+                    map.addLayer(alumniMarkers); // Default show alumni
+                    map.addLayer(companyMarkers); // Default show companies too if you want overlay
+                })
+                .catch(error => console.error('Error loading map data:', error));
 
             // Chart.js Premium Implementation
             const ctx = document.getElementById('expertiseChart').getContext('2d');
@@ -183,7 +345,7 @@
                     datasets: [{
                         data: Object.values(expertiseData),
                         backgroundColor: [
-                            '#E67E22', '#5D4037', '#3498DB', '#2ECC71', '#F1C40F', '#9B59B6', '#E74C3C', '#1ABC9C'
+                            '#E67E22', '#5D4037', '#FFB347', '#D35400', '#A04000', '#873600', '#6E2C00'
                         ],
                         borderWidth: 8,
                         borderColor: '#ffffff',

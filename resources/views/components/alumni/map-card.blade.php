@@ -12,12 +12,15 @@
             </div>
         </div>
         <div class="flex items-center gap-2 bg-gray-50 p-1.5 rounded-full border border-gray-100">
-            <span class="px-4 py-1.5 bg-white shadow-sm rounded-full text-[10px] font-black text-iaspig-orange uppercase tracking-wider">
-                Live Data
-            </span>
-            <span class="px-4 py-1.5 rounded-full text-[10px] font-black text-gray-400 uppercase tracking-wider">
+            <button id="show-markers" class="px-4 py-1.5 bg-white shadow-sm rounded-full text-[10px] font-black text-iaspig-orange uppercase tracking-wider transition-all">
+                Alumni
+            </button>
+            <button id="show-companies" class="px-4 py-1.5 rounded-full text-[10px] font-black text-gray-400 uppercase tracking-wider transition-all hover:text-iaspig-orange">
+                Bisnis
+            </button>
+            <button id="show-heatmap" class="px-4 py-1.5 rounded-full text-[10px] font-black text-gray-400 uppercase tracking-wider transition-all hover:text-iaspig-orange">
                 Heatmap
-            </span>
+            </button>
         </div>
     </div>
     
@@ -26,10 +29,10 @@
         
         <!-- Custom Map Controls Placeholder -->
         <div class="absolute bottom-6 left-6 z-[40] flex flex-col gap-2">
-            <button class="w-10 h-10 bg-white shadow-lg rounded-xl flex items-center justify-center text-iaspig-brown hover:bg-iaspig-orange hover:text-white transition-all">
+            <button id="zoom-in" class="w-10 h-10 bg-white shadow-lg rounded-xl flex items-center justify-center text-iaspig-brown hover:bg-iaspig-orange hover:text-white transition-all">
                 <i class="ri-add-line text-xl"></i>
             </button>
-            <button class="w-10 h-10 bg-white shadow-lg rounded-xl flex items-center justify-center text-iaspig-brown hover:bg-iaspig-orange hover:text-white transition-all">
+            <button id="zoom-out" class="w-10 h-10 bg-white shadow-lg rounded-xl flex items-center justify-center text-iaspig-brown hover:bg-iaspig-orange hover:text-white transition-all">
                 <i class="ri-subtract-line text-xl"></i>
             </button>
         </div>

@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                outfit: ['Outfit', 'sans-serif'],
             },
             colors: {
                 primary: '#E67E22',
@@ -29,7 +30,5 @@ export default {
     safelist: [
         'bg-iaspig-orange/10', 'text-iaspig-orange',
         'bg-iaspig-brown/10', 'text-iaspig-brown',
-        'bg-blue-500/10', 'text-blue-500',
-        'bg-green-500/10', 'text-green-500',
     ],
 };

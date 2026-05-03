@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            UserSeeder::class,
+            PostSeeder::class,
+        ]);
+
         // Initial Stats
         Stat::create(['label' => 'Total Alumni', 'value' => '1,500+', 'sort_order' => 1]);
         Stat::create(['label' => 'Angkatan', 'value' => '25+', 'sort_order' => 2]);

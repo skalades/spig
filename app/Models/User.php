@@ -42,6 +42,36 @@ class User extends Authenticatable
         return $this->hasMany(AlumniProject::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
+
+    public function jobPosts()
+    {
+        return $this->hasMany(JobPost::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
     /**
      * Check if user is admin.
      */
