@@ -25,18 +25,18 @@ class CompanyFactory extends Factory
             'Agriculture & Forestry' => ['Agro GIS Indonesia', 'Hutan Lestari Maps', 'Pemetaan Kebun Makmur', 'Sawit Digital Survey'],
         ];
 
-        $industry = $this->faker->randomElement(array_keys($industries));
-        $name = $this->faker->randomElement($industries[$industry]);
+        $industry = fake()->randomElement(array_keys($industries));
+        $name = fake()->randomElement($industries[$industry]);
         
         return [
             'user_id' => \App\Models\User::factory(),
-            'name' => $name . ' ' . $this->faker->unique()->numberBetween(1, 100),
-            'slug' => \Illuminate\Support\Str::slug($name) . '-' . $this->faker->unique()->numberBetween(100, 999),
+            'name' => $name . ' ' . fake()->unique()->numberBetween(1, 100),
+            'slug' => \Illuminate\Support\Str::slug($name) . '-' . fake()->unique()->numberBetween(100, 999),
             'description' => "Perusahaan yang bergerak di bidang {$industry} dengan komitmen memberikan hasil terbaik bagi klien.",
-            'address' => "Jl. Raya " . $this->faker->streetName() . " No. " . $this->faker->buildingNumber() . ", Bandung, Jawa Barat",
-            'latitude' => $this->faker->latitude(-7.0, -6.8), // Fokus Bandung area
-            'longitude' => $this->faker->longitude(107.5, 107.7),
-            'whatsapp_number' => '62812' . $this->faker->numerify('########'),
+            'address' => "Jl. Raya " . fake()->streetName() . " No. " . fake()->buildingNumber() . ", Bandung, Jawa Barat",
+            'latitude' => fake()->latitude(-7.0, -6.8), // Fokus Bandung area
+            'longitude' => fake()->longitude(107.5, 107.7),
+            'whatsapp_number' => '62812' . fake()->numerify('########'),
             'website' => 'https://' . \Illuminate\Support\Str::slug($name) . '.co.id',
             'industry_type' => $industry,
             'settings' => [
