@@ -18,7 +18,7 @@
                     <a href="{{ route('register') }}" class="btn-primary flex items-center gap-2 text-lg">
                         Gabung Sekarang <i class="ri-arrow-right-line"></i>
                     </a>
-                    <a href="{{ route('alumni.dashboard') }}" class="px-8 py-3 rounded-full border-2 border-iaspig-brown text-iaspig-brown font-bold hover:bg-iaspig-brown hover:text-white transition-all duration-300">
+                    <a href="{{ route('public.distribution') }}" class="px-8 py-3 rounded-full border-2 border-iaspig-brown text-iaspig-brown font-bold hover:bg-iaspig-brown hover:text-white transition-all duration-300">
                         Lihat Peta Sebaran
                     </a>
                 </div>
