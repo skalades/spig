@@ -91,6 +91,7 @@ class DashboardController extends Controller
                     'user_id' => $company->user_id,
                     'name' => $company->name,
                     'current_job' => $company->industry_type,
+                    'industry_type' => $company->industry_type, // Explicitly add industry_type
                     'company' => 'Verified Business',
                     'latitude' => $company->latitude,
                     'longitude' => $company->longitude,

@@ -34,6 +34,11 @@ class ManageCompany extends Component
     public $address;
     public $latitude;
     public $longitude;
+    public $industry_type;
+    public $settings = [
+        'show_rental' => false,
+        'show_portfolio' => true,
+    ];
 
     // Project Management
     public $isAddingProject = false;
@@ -55,6 +60,8 @@ class ManageCompany extends Component
         $this->address = $this->company->address;
         $this->latitude = $this->company->latitude;
         $this->longitude = $this->company->longitude;
+        $this->industry_type = $this->company->industry_type;
+        $this->settings = array_merge($this->settings, $this->company->settings ?? []);
     }
 
     public function updateCompany()
@@ -70,6 +77,9 @@ class ManageCompany extends Component
             'facebook' => 'nullable|url|max:255',
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
+            'industry_type' => 'required|string',
+            'settings.show_rental' => 'boolean',
+            'settings.show_portfolio' => 'boolean',
         ]);
 
         $this->company->update([
@@ -83,6 +93,8 @@ class ManageCompany extends Component
             'facebook' => $this->facebook,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'industry_type' => $this->industry_type,
+            'settings' => $this->settings,
         ]);
 
         $this->dispatch('notify', ['message' => 'Informasi perusahaan berhasil diperbarui', 'type' => 'success']);

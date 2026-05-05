@@ -46,10 +46,10 @@
             </a>
             
             <div class="hidden lg:flex items-center gap-8 font-semibold">
-                <a href="#" class="hover:text-iaspig-orange transition-colors">Beranda</a>
-                <a href="#" class="hover:text-iaspig-orange transition-colors">Direktori</a>
-                <a href="#" class="hover:text-iaspig-orange transition-colors">Peta Sebaran</a>
-                <a href="#" class="hover:text-iaspig-orange transition-colors">Bisnis</a>
+                <a href="/" class="hover:text-iaspig-orange transition-colors">Beranda</a>
+                <a href="{{ route('alumni.directory') }}" class="hover:text-iaspig-orange transition-colors">Direktori</a>
+                <a href="{{ route('alumni.dashboard') }}" class="hover:text-iaspig-orange transition-colors">Peta Sebaran</a>
+                <a href="{{ route('alumni.business.index') }}" class="hover:text-iaspig-orange transition-colors">Bisnis</a>
             </div>
             
             <div class="flex items-center gap-4">
@@ -70,15 +70,15 @@
                 <i class="ri-home-5-line text-2xl"></i>
                 <span class="text-[10px] font-bold uppercase">Beranda</span>
             </a>
-            <a href="#" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
+            <a href="{{ route('alumni.directory') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
                 <i class="ri-team-line text-2xl"></i>
                 <span class="text-[10px] font-bold uppercase">Direktori</span>
             </a>
-            <a href="#" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
+            <a href="{{ route('alumni.dashboard') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
                 <i class="ri-map-pin-2-line text-2xl"></i>
                 <span class="text-[10px] font-bold uppercase">Peta</span>
             </a>
-            <a href="#" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
+            <a href="{{ route('alumni.jobs.index') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
                 <i class="ri-briefcase-line text-2xl"></i>
                 <span class="text-[10px] font-bold uppercase">Karier</span>
             </a>

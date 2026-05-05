@@ -77,6 +77,13 @@
                                 >
                                     Balas
                                 </button>
+                                <button 
+                                    @click="$dispatch('openReportModal', { id: '{{ $comment->id }}', type: 'App\\Models\\Comment' })"
+                                    class="text-[10px] font-black uppercase tracking-widest text-gray-300 hover:text-red-400 ml-4 transition-colors"
+                                    title="Laporkan Komentar"
+                                >
+                                    <i class="ri-flag-line"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -97,9 +104,18 @@
                                                 <span class="text-[10px] font-black text-iaspig-brown">{{ $reply->user->name }}</span>
                                                 <span class="text-[8px] font-bold text-gray-400">{{ $reply->created_at->diffForHumans() }}</span>
                                             </div>
-                                            <p class="text-xs text-iaspig-brown/70 font-medium leading-relaxed">
-                                                {{ $reply->body }}
-                                            </p>
+                                            <div class="flex justify-between items-center mt-2 px-1">
+                                                <p class="text-xs text-iaspig-brown/70 font-medium leading-relaxed">
+                                                    {{ $reply->body }}
+                                                </p>
+                                                <button 
+                                                    @click="$dispatch('openReportModal', { id: '{{ $reply->id }}', type: 'App\\Models\\Comment' })"
+                                                    class="text-[10px] text-gray-300 hover:text-red-400 transition-colors"
+                                                    title="Laporkan Balasan"
+                                                >
+                                                    <i class="ri-flag-line"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

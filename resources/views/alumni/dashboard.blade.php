@@ -287,15 +287,29 @@
                         var linkUrl = isCompany ? `/alumni/business/${loc.slug}` : `/alumni/directory/${loc.user_id}`;
 
                         if (isCompany) {
+                            let iconClass = 'ri-briefcase-line';
+                            let iconColor = '#5D4037';
+                            
+                            switch(loc.industry_type) {
+                                case 'Surveying & Mapping': iconClass = 'ri-compass-3-line'; iconColor = '#E67E22'; break;
+                                case 'Engineering & Construction': iconClass = 'ri-building-2-line'; iconColor = '#34495E'; break;
+                                case 'IT & Software Development': iconClass = 'ri-code-s-slash-line'; iconColor = '#2980B9'; break;
+                                case 'Creative & Photography': iconClass = 'ri-camera-lens-line'; iconColor = '#E74C3C'; break;
+                                case 'Agriculture & Forestry': iconClass = 'ri-leaf-line'; iconColor = '#27AE60'; break;
+                            }
+
                             currentIcon = L.divIcon({
-                                html: `<svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M16 0C7.16344 0 0 7.16344 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.16344 24.8366 0 16 0Z" fill="#5D4037"/>
-                                        <circle cx="16" cy="16" r="6" fill="#E67E22"/>
-                                      </svg>`,
+                                html: `<div class="relative flex items-center justify-center">
+                                        <svg width="38" height="48" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 0C7.16344 0 0 7.16344 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.16344 24.8366 0 16 0Z" fill="${iconColor}"/>
+                                            <circle cx="16" cy="16" r="8" fill="white"/>
+                                        </svg>
+                                        <i class="${iconClass} absolute text-[10px]" style="color: ${iconColor}; top: 11px;"></i>
+                                       </div>`,
                                 className: 'brand-marker-icon company-marker',
-                                iconSize: [32, 42],
-                                iconAnchor: [16, 42],
-                                popupAnchor: [0, -40]
+                                iconSize: [38, 48],
+                                iconAnchor: [19, 48],
+                                popupAnchor: [0, -45]
                             });
                         }
                         

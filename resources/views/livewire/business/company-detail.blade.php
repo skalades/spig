@@ -60,7 +60,7 @@
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-4">
                             <div>
                                 <div class="flex items-center gap-3 mb-2">
-                                    <span class="text-[10px] font-black text-iaspig-orange uppercase tracking-widest">{{ $company->industry_type }}</span>
+                                    <span class="text-[10px] font-black text-iaspig-orange uppercase tracking-widest">{{ \App\Models\Company::INDUSTRY_TYPES[$company->industry_type] ?? $company->industry_type }}</span>
                                     @if($company->is_verified)
                                         <span class="px-3 py-1 bg-green-50 text-green-500 text-[10px] font-black uppercase tracking-widest rounded-lg flex items-center gap-1">
                                             <i class="ri-shield-check-fill"></i> Verified
@@ -204,14 +204,14 @@
                 @endif
 
                 <!-- Portfolio Section -->
-                @if($company->projects->count() > 0)
+                @if(($company->settings['show_portfolio'] ?? true) && $company->projects->count() > 0)
                 <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl shadow-iaspig-brown/5 border border-gray-50 relative overflow-hidden">
                     <div class="flex items-center justify-between mb-12">
                         <div>
                             <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-iaspig-brown/5 rounded-full text-[10px] font-black text-iaspig-brown uppercase tracking-widest mb-2">
                                 <i class="ri-folder-shared-line"></i> Works
                             </div>
-                            <h2 class="text-3xl font-black text-iaspig-brown">Portofolio Proyek</h2>
+                            <h2 class="text-3xl font-black text-iaspig-brown">Portofolio & Proyek</h2>
                         </div>
                     </div>
 
@@ -251,9 +251,11 @@
                 @endif
 
                 <!-- Rental Inventories -->
-                @if($company->inventories->isNotEmpty())
+                @if(($company->settings['show_rental'] ?? false) && $company->inventories->isNotEmpty())
                 <div>
-                    <h3 class="text-3xl font-black text-iaspig-brown mb-8">Katalog Rental Alat</h3>
+                    <h3 class="text-3xl font-black text-iaspig-brown mb-8">
+                        {{ $company->industry_type === 'engineering' ? 'Katalog Rental Alat Survey' : 'Inventaris & Peralatan' }}
+                    </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($company->inventories as $item)
                         <div class="bg-white rounded-[2rem] p-6 shadow-xl border border-gray-50 group hover:-translate-y-1 transition-transform">
@@ -342,10 +344,21 @@
                     attribution: '© OpenStreetMap contributors'
                 }).addTo(map);
 
+                @php
+                    $icon = match($company->industry_type) {
+                        'engineering' => 'ri-compass-3-fill',
+                        'it_services' => 'ri-code-s-slash-fill',
+                        'creative' => 'ri-camera-fill',
+                        'consultant' => 'ri-briefcase-fill',
+                        'commerce' => 'ri-shopping-bag-fill',
+                        default => 'ri-community-fill',
+                    };
+                @endphp
+
                 const customIcon = L.divIcon({
                     className: 'custom-div-icon',
                     html: `<div class="w-10 h-10 bg-iaspig-orange rounded-full border-4 border-white shadow-xl flex items-center justify-center text-white">
-                            <i class="ri-community-fill text-xl"></i>
+                            <i class="{{ $icon }} text-xl"></i>
                           </div>`,
                     iconSize: [40, 40],
                     iconAnchor: [20, 40]

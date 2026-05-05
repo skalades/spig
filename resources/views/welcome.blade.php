@@ -9,17 +9,16 @@
                     GEOSPACIAL COMMUNITY
                 </div>
                 <h1 class="text-5xl lg:text-7xl font-outfit font-bold text-iaspig-brown leading-tight" data-aos="fade-up">
-                    Koneksi Tanpa Batas, <span class="text-iaspig-orange">Kolaborasi</span> Tanpa Jarak.
+                    Sinergi Geospasial, <span class="text-iaspig-orange">Membangun</span> Negeri.
                 </h1>
                 <p class="text-lg text-gray-600 max-w-xl" data-aos="fade-up" data-aos-delay="200">
-                    Wadah pemersatu alumni SPIG UPI untuk menjaga napas silaturahmi lintas generasi. 
-                    Temukan rekan seperjuangan, akses bursa kerja eksklusif, dan kembangkan potensi bisnis pemetaanmu dalam satu ekosistem yang kolaboratif dan progresif.
+                    Pusat kolaborasi strategis alumni SPIG UPI. Akses bursa kerja eksklusif, direktori bisnis pemetaan, dan jaringan profesional dalam satu ekosistem digital yang progresif untuk masa depan survei dan pemetaan Indonesia.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4" data-aos="fade-up" data-aos-delay="400">
                     <a href="{{ route('register') }}" class="btn-primary flex items-center gap-2 text-lg">
                         Gabung Sekarang <i class="ri-arrow-right-line"></i>
                     </a>
-                    <a href="#" class="px-8 py-3 rounded-full border-2 border-iaspig-brown text-iaspig-brown font-bold hover:bg-iaspig-brown hover:text-white transition-all duration-300">
+                    <a href="{{ route('alumni.dashboard') }}" class="px-8 py-3 rounded-full border-2 border-iaspig-brown text-iaspig-brown font-bold hover:bg-iaspig-brown hover:text-white transition-all duration-300">
                         Lihat Peta Sebaran
                     </a>
                 </div>
@@ -27,8 +26,20 @@
             <div class="relative" data-aos="zoom-in" data-aos-delay="600">
                 <div class="absolute -top-10 -right-10 w-64 h-64 bg-iaspig-orange/10 rounded-full blur-3xl animate-slow-pulse"></div>
                 <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-iaspig-brown/10 rounded-full blur-3xl animate-slow-pulse" style="animation-delay: -4s;"></div>
-                <div class="rounded-3xl overflow-hidden shadow-2xl border-8 border-white transform rotate-2 animate-float">
-                    <img src="{{ asset('assets/img/hero_bg.png') }}" alt="Surveying Concept" class="w-full h-auto">
+                
+                <!-- Floating Badge -->
+                <div class="absolute -left-8 top-1/4 z-20 bg-white/80 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 flex items-center gap-4 animate-float">
+                    <div class="w-12 h-12 bg-iaspig-orange rounded-full flex items-center justify-center text-white text-xl shadow-lg shadow-iaspig-orange/30">
+                        <i class="ri-team-fill"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 font-bold uppercase tracking-tighter">Verified Alumni</div>
+                        <div class="text-xl font-bold text-iaspig-brown font-outfit">1.842+ Anggota</div>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                    <img src="{{ asset('assets/img/hero_bg.jpg') }}" alt="Surveying Concept" class="w-full h-auto">
                 </div>
             </div>
         </div>
@@ -52,8 +63,8 @@
     <section class="py-32">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-20 space-y-4" data-aos="fade-up">
-                <h2 class="text-4xl font-outfit font-bold text-iaspig-brown">Fitur Unggulan Geospasial</h2>
-                <p class="text-gray-500">Ekosistem digital untuk menjaga koneksi dan mendukung pertumbuhan profesional alumni.</p>
+                <h2 class="text-4xl font-outfit font-bold text-iaspig-brown">Eksplorasi Ekosistem IASPIG</h2>
+                <p class="text-gray-500 italic font-medium">Solusi cerdas untuk menjaga koneksi dan akselerasi pertumbuhan profesional di industri geospasial.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -92,11 +103,11 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                 <div class="max-w-2xl space-y-4" data-aos="fade-right">
-                    <h2 class="text-4xl font-outfit font-bold text-iaspig-brown">Karya Nyata Alumni</h2>
-                    <p class="text-gray-500">Menampilkan dedikasi dan keahlian alumni SPIG UPI dalam membangun infrastruktur geospasial nasional.</p>
+                    <h2 class="text-4xl font-outfit font-bold text-iaspig-brown">Karya Nyata & Portofolio</h2>
+                    <p class="text-gray-500 font-medium">Rekam jejak dedikasi alumni dalam proyek strategis nasional, mulai dari infrastruktur hingga pemetaan lingkungan.</p>
                 </div>
                 <div data-aos="fade-left">
-                    <a href="#" class="inline-flex items-center gap-2 text-iaspig-orange font-bold hover:gap-4 transition-all">
+                    <a href="{{ route('alumni.business.index') }}" class="inline-flex items-center gap-2 text-iaspig-orange font-bold hover:gap-4 transition-all">
                         Lihat Semua Proyek <i class="ri-arrow-right-line"></i>
                     </a>
                 </div>
@@ -129,7 +140,7 @@
                         <p class="text-gray-300 text-lg mb-10">
                             Kami membuka peluang kemitraan bagi instansi pemerintah maupun swasta untuk berkolaborasi dengan talenta terbaik di bidang Geospasial.
                         </p>
-                        <a href="#" class="inline-flex items-center gap-2 bg-white text-iaspig-brown px-8 py-4 rounded-full font-bold hover:bg-iaspig-orange hover:text-white transition-all">
+                        <a href="mailto:info@spig.upi.edu" class="inline-flex items-center gap-2 bg-white text-iaspig-brown px-8 py-4 rounded-full font-bold hover:bg-iaspig-orange hover:text-white transition-all">
                             Ajukan Kemitraan <i class="ri-external-link-line"></i>
                         </a>
                     </div>

@@ -39,8 +39,16 @@
             <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 py-2">
                 <button 
                     @click="
-                        navigator.clipboard.writeText('{{ url('/alumni/feed?post=' . $post->id) }}');
-                        $dispatch('notify', { message: 'Link disalin ke clipboard!', type: 'success' });
+                        if (navigator.share) {
+                            navigator.share({
+                                title: 'Postingan {{ $post->user->name }}',
+                                text: '{{ Str::limit($post->content, 100) }}',
+                                url: '{{ url('/alumni/feed?post=' . $post->id) }}'
+                            }).catch(err => console.log('Error sharing:', err));
+                        } else {
+                            navigator.clipboard.writeText('{{ url('/alumni/feed?post=' . $post->id) }}');
+                            $dispatch('notify', { message: 'Link disalin ke clipboard!', type: 'success' });
+                        }
                         open = false;
                     "
                     class="w-full text-left px-6 py-3 text-sm font-bold text-iaspig-brown hover:bg-gray-50 flex items-center gap-3"
@@ -127,8 +135,16 @@
         
         <button 
             @click="
-                navigator.clipboard.writeText('{{ url('/alumni/feed?post=' . $post->id) }}');
-                $dispatch('notify', { message: 'Link disalin ke clipboard!', type: 'success' });
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Postingan {{ $post->user->name }}',
+                        text: '{{ Str::limit($post->content, 100) }}',
+                        url: '{{ url('/alumni/feed?post=' . $post->id) }}'
+                    }).catch(err => console.log('Error sharing:', err));
+                } else {
+                    navigator.clipboard.writeText('{{ url('/alumni/feed?post=' . $post->id) }}');
+                    $dispatch('notify', { message: 'Link disalin ke clipboard!', type: 'success' });
+                }
             "
             class="w-10 h-10 rounded-full flex items-center justify-center text-gray-300 hover:bg-iaspig-orange/10 hover:text-iaspig-orange transition-all"
         >

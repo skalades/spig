@@ -19,37 +19,56 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             PostSeeder::class,
+            BusinessSeeder::class,
         ]);
 
         // Initial Stats
-        Stat::create(['label' => 'Total Alumni', 'value' => '1,500+', 'sort_order' => 1]);
-        Stat::create(['label' => 'Angkatan', 'value' => '25+', 'sort_order' => 2]);
-        Stat::create(['label' => 'Perusahaan', 'value' => '300+', 'sort_order' => 3]);
-        Stat::create(['label' => 'Provinsi', 'value' => '34', 'sort_order' => 4]);
+        Stat::truncate();
+        Stat::create(['label' => 'Total Alumni', 'value' => '1.842', 'sort_order' => 1]);
+        Stat::create(['label' => 'Angkatan', 'value' => '27', 'sort_order' => 2]);
+        Stat::create(['label' => 'Perusahaan', 'value' => '312', 'sort_order' => 3]);
+        Stat::create(['label' => 'Provinsi', 'value' => '38', 'sort_order' => 4]);
 
         // Initial Projects
+        Project::truncate();
         Project::create([
-            'title' => 'Smart City Dashboard',
-            'category' => 'GIS & Analysis',
-            'description' => 'Integrasi data spasial untuk monitoring infrastruktur perkotaan secara real-time.',
+            'title' => 'IKN Geospatial Base',
+            'category' => 'National Project',
+            'description' => 'Penyediaan kerangka spasial dasar untuk pembangunan Ibu Kota Nusantara yang berkelanjutan.',
             'image_path' => 'assets/img/portfolio_1.png',
             'sort_order' => 1
         ]);
 
         Project::create([
-            'title' => 'High-Res Orthophoto',
-            'category' => 'Photogrammetry',
-            'description' => 'Pemetaan koridor pesisir menggunakan teknologi UAV untuk mitigasi bencana.',
+            'title' => 'Bathy-Marine Expansion',
+            'category' => 'Hydrography',
+            'description' => 'Survei batimetri presisi tinggi untuk optimalisasi alur pelayaran pelabuhan internasional.',
             'image_path' => 'assets/img/portfolio_2.png',
             'sort_order' => 2
         ]);
 
         Project::create([
-            'title' => 'Topographic Mapping',
+            'title' => 'Mine-Scan 3D Pro',
             'category' => 'Terrestrial Survey',
-            'description' => 'Pengukuran presisi tinggi untuk perencanaan area tambang dan infrastruktur pendukung.',
+            'description' => 'Monitoring volume tambang secara periodik menggunakan teknologi Laser Scanning 3D.',
             'image_path' => 'assets/img/portfolio_3.png',
             'sort_order' => 3
+        ]);
+
+        Project::create([
+            'title' => 'Precision Agri-Mapping',
+            'category' => 'Remote Sensing',
+            'description' => 'Analisis kesehatan tanaman perkebunan sawit menggunakan citra multispektral UAV.',
+            'image_path' => 'assets/img/portfolio_1.png',
+            'sort_order' => 4
+        ]);
+
+        Project::create([
+            'title' => 'Smart Village GIS',
+            'category' => 'Community Service',
+            'description' => 'Digitalisasi administrasi desa berbasis peta untuk percepatan pelayanan publik.',
+            'image_path' => 'assets/img/portfolio_2.png',
+            'sort_order' => 5
         ]);
     }
 }

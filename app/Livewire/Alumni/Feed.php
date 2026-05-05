@@ -60,7 +60,7 @@ class Feed extends Component
 
         $post->delete();
 
-        session()->flash('message', 'Postingan berhasil dihapus.');
+        $this->dispatch('notify', message: 'Postingan berhasil dihapus.', type: 'success');
         $this->dispatch('post-deleted');
     }
 

@@ -12,7 +12,7 @@ class CompanyDetail extends Component
     public function mount($slug)
     {
         $this->company = Company::where('slug', $slug)
-            ->with(['services', 'inventories', 'jobPosts'])
+            ->with(['services', 'inventories', 'jobPosts', 'projects'])
             ->firstOrFail();
     }
 

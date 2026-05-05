@@ -13,6 +13,15 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Company extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
+    
+    const INDUSTRY_TYPES = [
+        'engineering' => 'Engineering & Geospatial',
+        'it_services' => 'IT & Software Development',
+        'creative'    => 'Creative Services (Photo/Video)',
+        'consultant'  => 'Professional Consultant',
+        'commerce'    => 'Commerce & Retail',
+        'other'       => 'Lainnya',
+    ];
 
     protected $fillable = [
         'user_id',
@@ -32,12 +41,14 @@ class Company extends Model implements HasMedia
         'instagram',
         'linkedin',
         'facebook',
+        'settings',
     ];
 
     protected $casts = [
         'is_verified' => 'boolean',
         'latitude' => 'decimal:8',
         'longitude' => 'decimal:8',
+        'settings' => 'array',
     ];
 
     public function user(): BelongsTo
