@@ -42,7 +42,7 @@
                         if (navigator.share) {
                             navigator.share({
                                 title: 'Postingan {{ $post->user->name }}',
-                                text: '{{ Str::limit($post->content, 100) }}',
+                                text: '{{ Str::limit(str_replace(["\r", "\n"], " ", $post->content), 100) }}',
                                 url: '{{ url('/alumni/feed?post=' . $post->id) }}'
                             }).catch(err => console.log('Error sharing:', err));
                         } else {
@@ -138,7 +138,7 @@
                 if (navigator.share) {
                     navigator.share({
                         title: 'Postingan {{ $post->user->name }}',
-                        text: '{{ Str::limit($post->content, 100) }}',
+                        text: '{{ Str::limit(str_replace(["\r", "\n"], " ", $post->content), 100) }}',
                         url: '{{ url('/alumni/feed?post=' . $post->id) }}'
                     }).catch(err => console.log('Error sharing:', err));
                 } else {
