@@ -32,6 +32,7 @@
             pointer-events: none;
         }
     </style>
+    @stack('styles')
 </head>
 <body class="antialiased">
     <!-- Navbar -->
@@ -47,14 +48,26 @@
             
             <div class="hidden lg:flex items-center gap-8 font-semibold">
                 <a href="/" class="hover:text-iaspig-orange transition-colors">Beranda</a>
-                <a href="{{ route('alumni.directory') }}" class="hover:text-iaspig-orange transition-colors">Direktori</a>
-                <a href="{{ route('alumni.dashboard') }}" class="hover:text-iaspig-orange transition-colors">Peta Sebaran</a>
-                <a href="{{ route('alumni.business.index') }}" class="hover:text-iaspig-orange transition-colors">Bisnis</a>
+                @auth
+                    <a href="{{ route('alumni.directory') }}" class="hover:text-iaspig-orange transition-colors">Direktori Alumni</a>
+                    <a href="{{ route('alumni.dashboard') }}" class="hover:text-iaspig-orange transition-colors">Peta Sebaran</a>
+                    <a href="{{ route('alumni.feed') }}" class="hover:text-iaspig-orange transition-colors">Social Feed</a>
+                @else
+                    <a href="{{ route('public.distribution') }}" class="hover:text-iaspig-orange transition-colors">Peta Sebaran</a>
+                    <a href="{{ route('public.directory.index') }}" class="hover:text-iaspig-orange transition-colors">Bisnis & Layanan</a>
+                    <a href="#kemitraan" class="hover:text-iaspig-orange transition-colors">Kemitraan</a>
+                @endauth
             </div>
             
             <div class="flex items-center gap-4">
-                <a href="{{ route('login') }}" class="text-iaspig-brown font-semibold hover:text-iaspig-orange transition-colors">Masuk</a>
-                <a href="{{ route('register') }}" class="btn-primary">Gabung</a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="btn-primary flex items-center gap-2">
+                        <i class="ri-dashboard-line"></i> Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="text-iaspig-brown font-semibold hover:text-iaspig-orange transition-colors">Masuk</a>
+                    <a href="{{ route('register') }}" class="btn-primary">Gabung</a>
+                @endauth
             </div>
         </div>
     </nav>
@@ -66,26 +79,37 @@
     <!-- Bottom Navigation (Mobile Only) -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-100 z-50 lg:hidden px-4 py-3">
         <div class="flex justify-between items-center max-w-md mx-auto">
-            <a href="/" class="flex flex-col items-center gap-1 text-iaspig-orange">
+            <a href="/" class="flex flex-col items-center gap-1 {{ request()->is('/') ? 'text-iaspig-orange' : 'text-gray-400' }}">
                 <i class="ri-home-5-line text-2xl"></i>
                 <span class="text-[10px] font-bold uppercase">Beranda</span>
             </a>
-            <a href="{{ route('alumni.directory') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
-                <i class="ri-team-line text-2xl"></i>
-                <span class="text-[10px] font-bold uppercase">Direktori</span>
-            </a>
-            <a href="{{ route('alumni.dashboard') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
-                <i class="ri-map-pin-2-line text-2xl"></i>
-                <span class="text-[10px] font-bold uppercase">Peta</span>
-            </a>
-            <a href="{{ route('alumni.jobs.index') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
-                <i class="ri-briefcase-line text-2xl"></i>
-                <span class="text-[10px] font-bold uppercase">Karier</span>
-            </a>
-            <a href="{{ route('login') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
-                <i class="ri-user-3-line text-2xl"></i>
-                <span class="text-[10px] font-bold uppercase">Masuk</span>
-            </a>
+            @auth
+                <a href="{{ route('alumni.feed') }}" class="flex flex-col items-center gap-1 {{ request()->is('alumni/feed*') ? 'text-iaspig-orange' : 'text-gray-400' }}">
+                    <i class="ri-compass-3-line text-2xl"></i>
+                    <span class="text-[10px] font-bold uppercase">Feed</span>
+                </a>
+                <a href="{{ route('alumni.dashboard') }}" class="flex flex-col items-center gap-1 {{ request()->is('alumni/dashboard*') ? 'text-iaspig-orange' : 'text-gray-400' }}">
+                    <i class="ri-map-pin-2-line text-2xl"></i>
+                    <span class="text-[10px] font-bold uppercase">Peta</span>
+                </a>
+                <a href="{{ route('dashboard') }}" class="flex flex-col items-center gap-1 {{ request()->is('dashboard*') ? 'text-iaspig-orange' : 'text-gray-400' }}">
+                    <i class="ri-user-3-line text-2xl"></i>
+                    <span class="text-[10px] font-bold uppercase">Profil</span>
+                </a>
+            @else
+                <a href="{{ route('public.distribution') }}" class="flex flex-col items-center gap-1 {{ request()->is('distribution*') ? 'text-iaspig-orange' : 'text-gray-400' }}">
+                    <i class="ri-map-2-line text-2xl"></i>
+                    <span class="text-[10px] font-bold uppercase">Peta</span>
+                </a>
+                <a href="{{ route('public.directory.index') }}" class="flex flex-col items-center gap-1 {{ request()->is('directory*') ? 'text-iaspig-orange' : 'text-gray-400' }}">
+                    <i class="ri-store-2-line text-2xl"></i>
+                    <span class="text-[10px] font-bold uppercase">Bisnis</span>
+                </a>
+                <a href="{{ route('login') }}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-iaspig-orange transition-colors">
+                    <i class="ri-login-box-line text-2xl"></i>
+                    <span class="text-[10px] font-bold uppercase">Masuk</span>
+                </a>
+            @endauth
         </div>
     </nav>
 
@@ -129,5 +153,6 @@
             easing: 'ease-in-out',
         });
     </script>
+    @stack('scripts')
 </body>
 </html>

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PostSeeder::class,
             BusinessSeeder::class,
+            EventSeeder::class,
         ]);
 
         // Initial Stats

@@ -9,6 +9,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [LandingPageController::class, 'index']);
+Route::get('/directory', \App\Livewire\Public\DirectoryIndex::class)->name('public.directory.index');
+Route::get('/directory/{slug}', \App\Livewire\Public\CompanyDetail::class)->name('public.directory.detail');
+Route::get('/distribution', function() {
+    return view('public.distribution', [
+        'industries' => \App\Models\Company::INDUSTRY_TYPES
+    ]);
+})->name('public.distribution');
+Route::get('/map-data', [DashboardController::class, 'mapData'])->name('public.map-data');
 
 Route::get('/dashboard', function () {
     if (Auth::user()->isAdmin()) {

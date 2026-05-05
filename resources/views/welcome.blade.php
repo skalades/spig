@@ -69,30 +69,43 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
-                <div class="p-10 rounded-3xl bg-white border border-gray-100 shadow-xl shadow-gray-100/50 hover:-translate-y-2 transition-all duration-500 group" data-aos="fade-up" data-aos-delay="100">
+                <a href="{{ route('public.distribution') }}" class="p-10 rounded-3xl bg-white border border-gray-100 shadow-xl shadow-gray-100/50 hover:-translate-y-2 transition-all duration-500 group block" data-aos="fade-up" data-aos-delay="100">
                     <div class="w-16 h-16 bg-iaspig-orange/10 rounded-2xl flex items-center justify-center text-iaspig-orange text-3xl mb-8 group-hover:bg-iaspig-orange group-hover:text-white transition-colors">
-                        <i class="ri-map-2-line"></i>
+                        <i class="ri-map-pin-2-line"></i>
                     </div>
                     <h3 class="text-xl font-bold text-iaspig-brown mb-4">Peta Sebaran Alumni</h3>
-                    <p class="text-gray-500 leading-relaxed">Visualisasi interaktif sebaran alumni di seluruh wilayah menggunakan teknologi Web-GIS terkini.</p>
-                </div>
+                    <p class="text-gray-500 leading-relaxed">Pantau persebaran geografis ribuan alumni SPIG UPI yang tersebar di seluruh Indonesia dan mancanegara secara real-time.</p>
+                </a>
                 
                 <!-- Feature 2 -->
-                <div class="p-10 rounded-3xl bg-white border border-gray-100 shadow-xl shadow-gray-100/50 hover:-translate-y-2 transition-all duration-500 group" data-aos="fade-up" data-aos-delay="200">
+                <a href="{{ route('public.directory.index') }}" class="p-10 rounded-3xl bg-white border border-gray-100 shadow-xl shadow-gray-100/50 hover:-translate-y-2 transition-all duration-500 group block" data-aos="fade-up" data-aos-delay="200">
                     <div class="w-16 h-16 bg-iaspig-brown/10 rounded-2xl flex items-center justify-center text-iaspig-brown text-3xl mb-8 group-hover:bg-iaspig-brown group-hover:text-white transition-colors">
-                        <i class="ri-building-line"></i>
+                        <i class="ri-store-2-line"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-iaspig-brown mb-4">Direktori Bisnis</h3>
-                    <p class="text-gray-500 leading-relaxed">Wadah promosi perusahaan dan jasa survey milik alumni untuk kolaborasi bisnis yang lebih luas.</p>
-                </div>
+                    <h3 class="text-xl font-bold text-iaspig-brown mb-4">Gerbang Bisnis Alumni</h3>
+                    <p class="text-gray-500 leading-relaxed mb-6">Marketplace profesional untuk menemukan jasa surveyor, GIS, dan layanan teknis lainnya langsung dari tangan ahli.</p>
+                    <div class="flex items-center gap-2 text-iaspig-brown font-bold text-sm">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        {{ $businessCount }}+ Bisnis Terdaftar
+                    </div>
+                </a>
                 
                 <!-- Feature 3 -->
                 <div class="p-10 rounded-3xl bg-white border border-gray-100 shadow-xl shadow-gray-100/50 hover:-translate-y-2 transition-all duration-500 group" data-aos="fade-up" data-aos-delay="300">
                     <div class="w-16 h-16 bg-iaspig-orange/10 rounded-2xl flex items-center justify-center text-iaspig-orange text-3xl mb-8 group-hover:bg-iaspig-orange group-hover:text-white transition-colors">
-                        <i class="ri-briefcase-line"></i>
+                        <i class="ri-calendar-event-line"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-iaspig-brown mb-4">Bursa Kerja & Karier</h3>
-                    <p class="text-gray-500 leading-relaxed">Akses peluang kerja strategis dan proyek eksklusif yang dibagikan langsung oleh rekan alumni di industri pemetaan.</p>
+                    <h3 class="text-xl font-bold text-iaspig-brown mb-4">Agenda & Event Komunitas</h3>
+                    <div class="space-y-4">
+                        @foreach($upcomingEvents as $event)
+                        <div class="flex items-start gap-3">
+                            <div class="bg-iaspig-orange/10 text-iaspig-orange text-[10px] font-bold px-2 py-1 rounded-md whitespace-nowrap mt-1">
+                                {{ $event->event_date->format('d M') }}
+                            </div>
+                            <div class="text-sm text-gray-600 font-medium line-clamp-1">{{ $event->title }}</div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,39 +143,45 @@
     </section>
 
     <!-- Partner CTA -->
-    <section class="pb-32">
-        <div class="container mx-auto px-6">
-            <div class="bg-gradient-orange-brown rounded-[3rem] p-12 md:p-20 relative overflow-hidden shadow-2xl shadow-iaspig-brown/20">
-                <div class="absolute top-0 right-0 w-96 h-96 bg-iaspig-orange/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
-                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div data-aos="fade-right">
-                        <h2 class="text-4xl font-outfit font-bold text-white mb-6">Tertarik Bekerja Sama dengan Alumni Kami?</h2>
-                        <p class="text-gray-300 text-lg mb-10">
-                            Kami membuka peluang kemitraan bagi instansi pemerintah maupun swasta untuk berkolaborasi dengan talenta terbaik di bidang Geospasial.
+    <section id="kemitraan" class="py-32 relative overflow-hidden bg-[#1a110e]">
+        <div class="absolute inset-0 topo-pattern opacity-[0.03]"></div>
+        <div class="absolute -left-24 top-0 w-96 h-96 bg-iaspig-orange/10 rounded-full blur-[120px]"></div>
+        <div class="absolute -right-24 bottom-0 w-96 h-96 bg-iaspig-brown/20 rounded-full blur-[120px]"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="space-y-12" data-aos="fade-right">
+                    <div class="space-y-6">
+                        <div class="inline-flex items-center gap-3 px-4 py-2 bg-iaspig-orange/10 rounded-full border border-iaspig-orange/20">
+                            <span class="w-2 h-2 bg-iaspig-orange rounded-full animate-pulse"></span>
+                            <span class="text-[10px] font-black uppercase tracking-[0.3em] text-iaspig-orange">Collaboration</span>
+                        </div>
+                        <h2 class="text-5xl md:text-6xl font-outfit font-bold text-white leading-tight">Sinergi Strategis <br> Bersama <span class="text-iaspig-orange">Alumni</span></h2>
+                        <p class="text-gray-400 text-lg leading-relaxed max-w-xl">
+                            Buka peluang kolaborasi baru. Kami menghubungkan instansi Anda dengan tenaga ahli geospasial tersertifikasi dari jaringan alumni SPIG UPI.
                         </p>
-                        <a href="mailto:info@spig.upi.edu" class="inline-flex items-center gap-2 bg-white text-iaspig-brown px-8 py-4 rounded-full font-bold hover:bg-iaspig-orange hover:text-white transition-all">
-                            Ajukan Kemitraan <i class="ri-external-link-line"></i>
-                        </a>
                     </div>
-                    <div class="grid grid-cols-2 gap-4" data-aos="fade-left">
-                        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center hover:bg-white/10 transition-colors">
-                            <i class="ri-focus-3-line text-4xl text-iaspig-orange mb-4"></i>
-                            <div class="text-white font-bold">Surveyor</div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="group p-8 rounded-3xl bg-white/[0.03] border border-white/5 hover:border-iaspig-orange/30 transition-all duration-500">
+                            <div class="w-14 h-14 bg-iaspig-orange/10 rounded-2xl flex items-center justify-center text-iaspig-orange text-2xl mb-6 group-hover:bg-iaspig-orange group-hover:text-white transition-all">
+                                <i class="ri-mail-send-line"></i>
+                            </div>
+                            <div class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Email Korespondensi</div>
+                            <div class="text-white font-bold text-lg">info@spig.upi.edu</div>
                         </div>
-                        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center hover:bg-white/10 transition-colors">
-                            <i class="ri-global-line text-4xl text-iaspig-orange mb-4"></i>
-                            <div class="text-white font-bold">GIS Analyst</div>
-                        </div>
-                        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center hover:bg-white/10 transition-colors">
-                            <i class="ri-compass-3-line text-4xl text-iaspig-orange mb-4"></i>
-                            <div class="text-white font-bold">Mapper</div>
-                        </div>
-                        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 text-center hover:bg-white/10 transition-colors">
-                            <i class="ri-satellite-line text-4xl text-iaspig-orange mb-4"></i>
-                            <div class="text-white font-bold">Remote Sensing</div>
+
+                        <div class="group p-8 rounded-3xl bg-white/[0.03] border border-white/5 hover:border-iaspig-orange/30 transition-all duration-500">
+                            <div class="w-14 h-14 bg-iaspig-orange/10 rounded-2xl flex items-center justify-center text-iaspig-orange text-2xl mb-6 group-hover:bg-iaspig-orange group-hover:text-white transition-all">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <div class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Lokasi Sekretariat</div>
+                            <div class="text-white font-bold leading-snug">Kampus UPI, Bandung</div>
                         </div>
                     </div>
                 </div>
+
+                @livewire('landing.partnership-form')
             </div>
         </div>
     </section>

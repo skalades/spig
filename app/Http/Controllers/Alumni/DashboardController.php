@@ -44,8 +44,11 @@ class DashboardController extends Controller
 
     public function mapData()
     {
-        // Cache map data for 1 hour
-        $alumniLocations = Cache::remember('alumni_map_data_v2', 3600, function () {
+        $user = Auth::user();
+        $isPublic = !$user || !$user->isVerifiedAlumni();
+        $cacheKey = $isPublic ? 'alumni_map_data_public' : 'alumni_map_data_auth';
+
+        $alumniLocations = Cache::remember($cacheKey, 3600, function () use ($isPublic) {
             $profiles = AlumniProfile::with('user:id,name')
                 ->select('id', 'user_id', 'latitude', 'longitude', 'current_job', 'company', 'job_history')
                 ->get();
@@ -57,14 +60,13 @@ class DashboardController extends Controller
                 $lng = $profile->longitude;
                 $type = 'Domisili';
                 
-                // Cek apakah ada lokasi pekerjaan saat ini
                 if (is_array($profile->job_history)) {
                     foreach ($profile->job_history as $job) {
                         if (!empty($job['is_current']) && $job['is_current'] == true && !empty($job['lat']) && !empty($job['lng'])) {
                             $lat = $job['lat'];
                             $lng = $job['lng'];
                             $type = 'Lokasi Kerja';
-                            break; // Gunakan pekerjaan saat ini yang pertama ditemukan
+                            break;
                         }
                     }
                 }
@@ -72,31 +74,31 @@ class DashboardController extends Controller
                 if ($lat && $lng) {
                     $mapData[] = [
                         'id' => $profile->id,
-                        'user_id' => $profile->user_id,
-                        'name' => $profile->user->name ?? 'Unknown',
-                        'current_job' => $profile->current_job,
-                        'company' => $profile->company,
+                        'name' => $isPublic ? 'Alumni IASPIG' : ($profile->user->name ?? 'Unknown'),
+                        'current_job' => $isPublic ? 'Professional' : $profile->current_job,
+                        'company' => $isPublic ? 'Verified Company' : $profile->company,
                         'latitude' => $lat,
                         'longitude' => $lng,
-                        'type' => $type
+                        'type' => $type,
+                        'is_public' => $isPublic
                     ];
                 }
             }
             
-            // Tambahkan data Company (Perusahaan Alumni)
+            // Tambahkan data Company (Selalu Publik Detailnya karena ini Marketplace)
             $companies = Company::whereNotNull('latitude')->whereNotNull('longitude')->get();
             foreach ($companies as $company) {
                 $mapData[] = [
                     'id' => 'company_' . $company->id,
-                    'user_id' => $company->user_id,
                     'name' => $company->name,
                     'current_job' => $company->industry_type,
-                    'industry_type' => $company->industry_type, // Explicitly add industry_type
+                    'industry_type' => $company->industry_type,
                     'company' => 'Verified Business',
                     'latitude' => $company->latitude,
                     'longitude' => $company->longitude,
                     'type' => 'Perusahaan',
-                    'slug' => $company->slug
+                    'slug' => $company->slug,
+                    'is_company' => true
                 ];
             }
             

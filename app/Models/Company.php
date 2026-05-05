@@ -15,12 +15,11 @@ class Company extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
     
     const INDUSTRY_TYPES = [
-        'engineering' => 'Engineering & Geospatial',
-        'it_services' => 'IT & Software Development',
-        'creative'    => 'Creative Services (Photo/Video)',
-        'consultant'  => 'Professional Consultant',
-        'commerce'    => 'Commerce & Retail',
-        'other'       => 'Lainnya',
+        'Surveying & Mapping' => 'Surveying & Mapping',
+        'Engineering & Construction' => 'Engineering & Construction',
+        'IT & Software Development' => 'IT & Software Development',
+        'Creative & Photography' => 'Creative & Photography',
+        'Agriculture & Forestry' => 'Agriculture & Forestry',
     ];
 
     protected $fillable = [
